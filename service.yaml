@@ -12,7 +12,6 @@ spec:
       labels:
         run: master-service-backend
     spec:
-      serviceAccount: internal-kubectl
       containers:
       - name: master-service-backend
         image: 973141472776.dkr.ecr.ap-south-1.amazonaws.com/sem/master-service-backend:1.0
