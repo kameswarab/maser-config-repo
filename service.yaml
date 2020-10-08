@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: master-service-backend
+spec:
+  selector:
+    matchLabels:
+      run: master-service-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: master-service-backend
+    spec:
+      serviceAccount: internal-kubectl
+      containers:
+      - name: master-service-backend
+        image: 973141472776.dkr.ecr.ap-south-1.amazonaws.com/sem/master-service-backend:1.0
+        ports:
+        - containerPort: 8090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: master-service-backend
+  labels:
+    run: master-service-backend
+spec:
+  ports:
+  - port: 8090
+    protocol: TCP
+    targetPort: 8090
+  type: ClusterIP
+  selector:
+    run: master-service-backend
